@@ -1,0 +1,148 @@
+table transactions
+	lineageTag: 01d7bc8c-05a1-48dd-aa32-fb49c6d5f4f5
+
+	column Code_Transaction
+		dataType: int64
+		formatString: 0
+		lineageTag: 8af2a2c2-372e-46fb-9cca-ead1cc69a228
+		summarizeBy: sum
+		sourceColumn: Code_Transaction
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a08e2f5-43e7-42f3-ab71-2f01782c1375
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Client
+		dataType: string
+		lineageTag: de702756-49c1-4c99-9cc6-1422832e0407
+		summarizeBy: none
+		sourceColumn: Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categorie
+		dataType: string
+		lineageTag: 724bb715-72c5-4076-a734-ae5c4f492c74
+		summarizeBy: none
+		sourceColumn: Categorie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Montant
+		dataType: double
+		lineageTag: 28f89246-0531-49b5-860d-99a7db61c9c2
+		summarizeBy: sum
+		sourceColumn: Montant
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Type_Transaction
+		dataType: string
+		lineageTag: 2e0b876f-a60d-456f-bed6-e82bf477030a
+		summarizeBy: none
+		sourceColumn: Type_Transaction
+
+		annotation SummarizationSetBy = Automatic
+
+	column Devise
+		dataType: string
+		lineageTag: 00a7f6f7-706a-45cc-bd99-45571fee6fd2
+		summarizeBy: none
+		sourceColumn: Devise
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		lineageTag: 26e04de2-d270-4688-ad99-52d2a3191e18
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Commentaire
+		dataType: string
+		lineageTag: 78eb9b95-fcaf-4484-a0c6-a4206ba1200d
+		summarizeBy: none
+		sourceColumn: Commentaire
+
+		annotation SummarizationSetBy = Automatic
+
+	column Statut
+		dataType: string
+		lineageTag: 0e8a8087-3eaf-4beb-9227-f276dda36cf1
+		summarizeBy: none
+		sourceColumn: Statut
+
+		annotation SummarizationSetBy = Automatic
+
+	column Montant_EUR
+		dataType: double
+		isHidden
+		lineageTag: 2715e8ef-883e-47b1-8da6-dc87029f152a
+		summarizeBy: sum
+		sourceColumn: Montant_EUR
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Montant_CAD
+		dataType: double
+		isHidden
+		lineageTag: 4fb94335-3fda-42d9-be73-218562b7c7ab
+		summarizeBy: sum
+		sourceColumn: Montant_CAD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MontantUSD = IF(transactions[Devise]="USD",transactions[Montant], RELATED(taux_change[Taux_USD]) * transactions[Montant])
+		lineageTag: 1e34c045-7250-494b-b614-c557b2b2e8da
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProfitUSD = IF(transactions[Devise]="USD",transactions[Profit], RELATED(taux_change[Taux_USD]) * transactions[Profit])
+		lineageTag: 574f7485-c1d3-4432-bf9d-d97e9fb0289e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition transactions = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Etude Power BI\transactions.csv"),[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Code_Transaction", Int64.Type}, {"Date", type date}, {"Client", type text}, {"Categorie", type text}, {"Montant", type number}, {"Type_Transaction", type text}, {"Devise", type text}, {"Profit", type number}, {"Commentaire", type text}, {"Statut", type text}, {"Montant_EUR", type number}, {"Montant_CAD", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Statut] <> "Rejeté"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

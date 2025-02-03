@@ -1,0 +1,50 @@
+table clients
+	lineageTag: a3518846-d716-44b4-b51e-26675ddcff4c
+
+	column Client
+		dataType: string
+		lineageTag: 0f3726d1-2e2f-4837-98aa-79fd96a07a26
+		summarizeBy: none
+		sourceColumn: Client
+
+		annotation SummarizationSetBy = Automatic
+
+	column Secteur
+		dataType: string
+		lineageTag: 45823b86-3029-4cda-bfcb-f22ca42caa22
+		summarizeBy: none
+		sourceColumn: Secteur
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: d997f994-0bbc-41f1-b4dc-932d7ba81bc5
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_Client
+		dataType: string
+		lineageTag: c8306bff-822f-4369-920e-faed5855e5ff
+		summarizeBy: none
+		sourceColumn: Type_Client
+
+		annotation SummarizationSetBy = Automatic
+
+	partition clients = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Etude Power BI\clients.csv"),[Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Client", type text}, {"Secteur", type text}, {"Pays", type text}, {"Type_Client", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

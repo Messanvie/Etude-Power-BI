@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "FinCorp"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "81b0afdb-a46d-441f-9afe-3c6c6cdb555d"
+  }
+}

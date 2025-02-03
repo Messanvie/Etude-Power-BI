@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["clients","investissements","taux_change","transactions"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.139.2054.0 (24.12)+334ca1c95b576cc53924655643b0d36f21caac55
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table clients
+ref table investissements
+ref table DateTableTemplate_6e2f387a-86d7-4e00-b4ad-a98c5c56ee12
+ref table taux_change
+ref table transactions
+ref table Calendrier
+ref table LocalDateTable_fb96ad92-0c5d-452b-b983-b90c8e5efdf2
+ref table _Mesures
+
+ref cultureInfo en-US
+

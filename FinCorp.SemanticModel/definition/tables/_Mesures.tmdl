@@ -1,0 +1,47 @@
+table _Mesures
+	lineageTag: 299087e7-ffa2-4f16-834d-fe9d3d17614a
+
+	measure TotalRevenue = SUMX(FILTER(Transactions, transactions[Type_Transaction]= "Revenu" ), transactions[MontantUSD])
+		lineageTag: bfee44a2-e8ea-4d47-80f8-4d6041a9fb04
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TotalDepense = SUMX(FILTER(Transactions, transactions[Type_Transaction]= "Dépense" ), transactions[MontantUSD])
+		lineageTag: c4d746bb-dacf-4d11-a33b-02016d660c1f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ProfitNet = [TotalRevenue]+ [TotalDepense]
+		lineageTag: 3ab7e2f8-2c89-4b0b-beb0-52dcebec83a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MonthlyRevenueGrowth = ```
+			
+			VAR CurtMonth = SUMX(FILTER(Transactions, Transactions[Type_Transaction] = "Revenu"), transactions[MontantUSD])
+			VAR PrevMonth = CALCULATE([TotalRevenue], PREVIOUSMONTH(Transactions[Date]))
+			RETURN 
+			DIVIDE(CurtMonth - PrevMonth, PrevMonth, 0) * 100
+			```
+		lineageTag: c9ef4989-67b4-4707-8b9f-00438ef37c0a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 4cd89b1b-4a05-4aa7-ba9b-3c0151928809
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Mesures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = d4b287a87afd48519c7d1cc6f53063ff
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

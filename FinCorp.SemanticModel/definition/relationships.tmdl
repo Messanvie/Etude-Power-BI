@@ -1,0 +1,22 @@
+relationship AutoDetected_a8ebb8b8-8018-43f5-b8e9-ac21f2b8e5e9
+	fromColumn: transactions.Client
+	toColumn: clients.Client
+
+relationship AutoDetected_62d63ba1-b0ad-4799-b4b0-408b2a2ed303
+	fromColumn: transactions.Devise
+	toColumn: taux_change.Devise
+
+relationship 0e3b35b4-0b3d-4061-8845-369603223bf5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendrier.Date
+	toColumn: LocalDateTable_fb96ad92-0c5d-452b-b983-b90c8e5efdf2.Date
+
+relationship 63563d5e-6dd5-de20-8774-6154ff1275f4
+	fromColumn: transactions.Date
+	toColumn: Calendrier.Date
+
+relationship 275b984f-3536-4532-9138-bf78ddc65b6b
+	crossFilteringBehavior: bothDirections
+	fromColumn: investissements.Date
+	toColumn: Calendrier.Date
+

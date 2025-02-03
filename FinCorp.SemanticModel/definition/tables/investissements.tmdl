@@ -1,0 +1,63 @@
+table investissements
+	lineageTag: 9a5c611b-a629-4958-baa8-5bc5fc14f0a1
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9c9c9023-7c71-4d18-81b0-2265529f4961
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Type_Investissement
+		dataType: string
+		lineageTag: 67f4d620-691c-4bd0-89f8-bffb151fb8b7
+		summarizeBy: none
+		sourceColumn: Type_Investissement
+
+		annotation SummarizationSetBy = Automatic
+
+	column Montant_Investi
+		dataType: int64
+		formatString: 0
+		lineageTag: 264f7a83-4593-47f4-a8a3-0185b7d5e51b
+		summarizeBy: sum
+		sourceColumn: Montant_Investi
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ROI (%)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b2161f6-ae03-42d1-9e2b-bbfc96994a68
+		summarizeBy: sum
+		sourceColumn: ROI (%)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valeur_Actuelle
+		dataType: int64
+		formatString: 0
+		lineageTag: d2abee1e-ade5-4768-a80d-f6c8bfb8bc79
+		summarizeBy: sum
+		sourceColumn: Valeur_Actuelle
+
+		annotation SummarizationSetBy = Automatic
+
+	partition investissements = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Etude Power BI\investissements.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Type_Investissement", type text}, {"Montant_Investi", Int64.Type}, {"ROI (%)", Int64.Type}, {"Valeur_Actuelle", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

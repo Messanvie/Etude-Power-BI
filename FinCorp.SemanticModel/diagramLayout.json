@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 160.38305001469371,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 634.38305001469394,
+            "y": 9.1553020401544813
+          },
+          "nodeIndex": "clients",
+          "nodeLineageTag": "a3518846-d716-44b4-b51e-26675ddcff4c",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 636.38305001469382,
+            "y": 204.99999999999997
+          },
+          "nodeIndex": "investissements",
+          "nodeLineageTag": "9a5c611b-a629-4958-baa8-5bc5fc14f0a1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 40.140412819753791
+          },
+          "nodeIndex": "taux_change",
+          "nodeLineageTag": "85936784-6963-41cb-a5d3-3b907a800bd6",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 300.20156119318534,
+            "y": 0
+          },
+          "nodeIndex": "transactions",
+          "nodeLineageTag": "01d7bc8c-05a1-48dd-aa32-fb49c6d5f4f5",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 346.38305001469371,
+            "y": 366
+          },
+          "nodeIndex": "Calendrier",
+          "nodeLineageTag": "3977ae44-267d-47de-adc3-85a73fe2f53e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 920.38305001469382,
+            "y": 183
+          },
+          "nodeIndex": "_Mesures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,35 @@
+table taux_change
+	lineageTag: 85936784-6963-41cb-a5d3-3b907a800bd6
+
+	column Devise
+		dataType: string
+		lineageTag: a81219bc-7164-4464-b7e9-a6aa4d58ff14
+		summarizeBy: none
+		sourceColumn: Devise
+
+		annotation SummarizationSetBy = Automatic
+
+	column Taux_USD
+		dataType: double
+		lineageTag: d88b89d3-895f-4a66-beaf-a963a50c118d
+		summarizeBy: none
+		sourceColumn: Taux_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition taux_change = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Etude Power BI\taux_change.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Devise", type text}, {"Taux_USD", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

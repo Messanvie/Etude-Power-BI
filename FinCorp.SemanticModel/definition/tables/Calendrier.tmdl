@@ -1,0 +1,25 @@
+table Calendrier
+	lineageTag: 3977ae44-267d-47de-adc3-85a73fe2f53e
+
+	column Date
+		formatString: Long Date
+		lineageTag: 20362291-ed70-49b7-8a8f-6366494ecba4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 0e3b35b4-0b3d-4061-8845-369603223bf5
+			defaultHierarchy: LocalDateTable_fb96ad92-0c5d-452b-b983-b90c8e5efdf2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Calendrier = calculated
+		mode: import
+		source = CALENDAR(MIN(transactions[Date]),MAX(transactions[Date]))
+
+	annotation PBI_Id = 7494b4d747404d89bdd86c50ff98b9ef
+
