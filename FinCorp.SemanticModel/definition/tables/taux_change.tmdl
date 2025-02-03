@@ -23,7 +23,7 @@ table taux_change
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("D:\Etude Power BI\taux_change.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(Path & "/taux_change.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Devise", type text}, {"Taux_USD", type number}})
 				in

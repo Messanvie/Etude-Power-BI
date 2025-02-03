@@ -135,7 +135,7 @@ table transactions
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("D:\Etude Power BI\transactions.csv"),[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(Path & "/transactions.csv"),[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Code_Transaction", Int64.Type}, {"Date", type date}, {"Client", type text}, {"Categorie", type text}, {"Montant", type number}, {"Type_Transaction", type text}, {"Devise", type text}, {"Profit", type number}, {"Commentaire", type text}, {"Statut", type text}, {"Montant_EUR", type number}, {"Montant_CAD", type number}}),
 				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Statut] <> "Rejeté"))

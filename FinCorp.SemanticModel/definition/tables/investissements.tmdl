@@ -51,7 +51,7 @@ table investissements
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("D:\Etude Power BI\investissements.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(Path & "/investissements.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Type_Investissement", type text}, {"Montant_Investi", Int64.Type}, {"ROI (%)", Int64.Type}, {"Valeur_Actuelle", Int64.Type}})
 				in

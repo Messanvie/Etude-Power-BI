@@ -1,0 +1,7 @@
+expression Path = "D:\Etude Power BI" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0ec1fa55-a176-47bc-a343-22a47f8d29dd
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
